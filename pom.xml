@@ -34,8 +34,8 @@
             <artifactId>postgresql</artifactId>
             <version>42.2.21</version>
         </dependency>
-
     </dependencies>
+
 
     <build>
         <finalName>demo</finalName>

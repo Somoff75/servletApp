@@ -6,23 +6,12 @@ import java.util.List;
 
 public class EmployeeRepository {
 
-    /*public static void main(String[] args) {
-        getConnection();
-
-        Employee employee = new Employee();
-
-        employee.setName("oleg");
-        employee.setEmail(" ");
-        employee.setCountry(" ");
-        save(employee);
-    }*/
-
     public static Connection getConnection() {
 
         Connection connection = null;
         String url = "jdbc:postgresql://localhost:5432/employee";
         String user = "postgres";
-        String password = "postgres";
+        String password = "qwerty";
 
         try {
             connection = DriverManager.getConnection(url, user, password);
@@ -143,5 +132,25 @@ public class EmployeeRepository {
             e.printStackTrace();
         }
         return listEmployees;
+    }
+
+    public static int updateEmailById(int id, String email) {
+
+            int status = 0;
+
+            try {
+                Connection connection = EmployeeRepository.getConnection();
+                PreparedStatement ps = connection.prepareStatement("update users set email=? where id=?");
+                ps.setString(1, email);
+                ps.setInt(2, id);
+
+                status = ps.executeUpdate();
+                connection.close();
+
+            } catch (SQLException sqlException) {
+                sqlException.printStackTrace();
+                System.out.println("Error: " + sqlException.getMessage());
+            }
+            return status;
     }
 }
